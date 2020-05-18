@@ -1,0 +1,23 @@
+[bootstrap]
+main_collection = /loader/loader.collectionc
+
+[script]
+shared_state = 1
+
+[display]
+width = 960
+height = 640
+fullscreen = 0
+high_dpi = 0
+
+[android]
+input_method = HiddenInputField
+
+[project]
+title = My Project
+dependencies = https://github.com/subsoap/chip-sounds/archive/master.zip
+compress_archive = 0
+
+[library]
+include_dirs = 
+

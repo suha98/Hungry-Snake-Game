@@ -1,0 +1,164 @@
+local function put_food(self)
+	self.food = {x = math.random(1, 30), y = math.random(1, 18)}
+	tilemap.set_tile("#grid", "layer1", self.food.x, self.food.y, 3)        
+end
+
+local function put_star(self)
+	self.star = {x = math.random(1, 30), y = math.random(1, 18)}
+	tilemap.set_tile("#grid", "layer1", self.star.x, self.star.y, 9)        
+end
+
+local function put_power(self)
+	self.power = {x = math.random(1, 30), y = math.random(1, 18)}
+	tilemap.set_tile("#grid", "layer1", self.power.x, self.power.y, 10)        
+end
+
+function init(self)
+	sound.play("#loading", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+	self.score  = 0
+	self.count = 0
+	msg.post(".", "acquire_input_focus")
+	self.segments = {
+		{x = 4, y = 10},
+		{x = 5, y = 10},
+		{x = 6, y = 10},
+		{x = 7, y = 10} }
+		self.dir = {x = 1, y = 0}
+		self.dirqueue = {}
+		self.speed = 7.0
+		self.alive = true
+		self.t = 0
+
+		math.randomseed(socket.gettime())
+		put_food(self)
+	end
+
+	
+	function update(self, dt)
+		local finish = 0
+		
+		local score = 50
+		self.t = self.t + dt		
+		if self.t >= 1.0 / self.speed and self.alive then
+			local newdir = table.remove(self.dirqueue, 1)
+
+			if newdir then
+				local opposite = newdir.x == -self.dir.x or newdir.y == -self.dir.y
+				if not opposite then
+					self.dir = newdir
+				end
+			end
+
+			head = self.segments[#self.segments]
+			local newhead = {x = head.x + self.dir.x, y = head.y + self.dir.y}
+
+			table.insert(self.segments, newhead)
+
+			local tile = tilemap.get_tile("#grid", "layer1", newhead.x, newhead.y)
+
+			if tile == 2 or tile == 3 or tile == 7 then
+				
+				self.alive = false
+				msg.post("#main", "gameover")
+				sound.play("#gameover", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+			
+				
+			elseif tile == 4 or tile == 5 or tile == 6 or tile == 17 or tile == 19 or tile == 8 or tile == 11 or tile == 12 then
+			
+				self.speed = self.speed + 0.05		
+				self.score = self.score + 20
+				self.count = self.count + 1
+				sound.play("#eating", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+				msg.post("#main", "add", {amount = self.score})
+				if self.count % 4 == 0 then
+					put_food(self)
+				elseif self.count%9 == 0 then
+					put_star(self)
+				elseif self.count%5 == 0 then
+					put_power(self)
+				end
+			elseif tile == 9 then
+				self.score = self.score + 500
+				msg.post("#main", "add", {amount = self.score})
+				sound.play("#buttonclick", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+
+			elseif tile == 10 then
+				self.score = self.score + 50
+				msg.post("#main", "add", {amount = self.score})
+				sound.play("#buttonclick", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+				local tail = table.remove(self.segments, 1)
+				tilemap.set_tile("#grid", "layer1", tail.x, tail.y, 1)
+				local tail = table.remove(self.segments, 1)
+				tilemap.set_tile("#grid", "layer1", tail.x, tail.y, 1)
+				local tail = table.remove(self.segments, 1)
+				tilemap.set_tile("#grid", "layer1", tail.x, tail.y, 1)
+				local tail = table.remove(self.segments, 1)
+				tilemap.set_tile("#grid", "layer1", tail.x, tail.y, 1)
+				
+			else
+				local tail = table.remove(self.segments, 1)
+				tilemap.set_tile("#grid", "layer1", tail.x, tail.y, 1)
+			end
+		
+			for i, s in ipairs(self.segments) do
+				tilemap.set_tile("#grid", "layer1", s.x, s.y, 2)            
+			end
+
+			local start_x, start_y, w, h = tilemap.get_bounds("#grid")
+			for x=start_x,start_x+w do
+				for y=start_y,start_y+h do
+					local tile = tilemap.get_tile("#grid", "layer1", x, y)
+					if tile == 4 or tile == 5 or tile == 6 or tile == 17 or tile == 19 or tile == 8 or tile == 11 or tile == 12 then
+						finish = finish +1
+					end
+				end
+			end	
+
+			if finish == 0 then
+				self.alive = false
+				msg.post("#main", "win")
+			end
+			
+			self.t = 0
+		end
+	end
+
+
+	
+
+	function on_input(self, action_id, action)
+		if action_id == hash("Up") and action.pressed then
+			table.insert(self.dirqueue, {x = 0, y = 1})
+		elseif action_id == hash("Down") and action.pressed then
+			table.insert(self.dirqueue, {x = 0, y = -1})
+		elseif action_id == hash("Left") and action.pressed then
+			table.insert(self.dirqueue, {x = -1, y = 0})
+		elseif action_id == hash("Right") and action.pressed then
+			table.insert(self.dirqueue, {x = 1, y = 0})
+			
+			--clockwise touch
+		end
+			--if  self.dir.x == 1 and self.dir.y == 0 then
+				--table.insert(self.dirqueue, {x = 0, y = -1})
+			--elseif self.dir.x == -1 and self.dir.y == 0 then
+				--table.insert(self.dirqueue, {x = 0, y = 1})
+			--elseif self.dir.x == 0 and self.dir.y == 1 then
+				--table.insert(self.dirqueue, {x = 1, y = 0})	
+			--elseif self.dir.x == 0 and self.dir.y == -1 then
+				--table.insert(self.dirqueue, {x = -1, y = 0})	
+			--end
+
+			-- anticlockwise touch
+			
+		--elseif action_id == hash("touch") and action.pressed and action.x < 384 then
+			--if  self.dir.x == 1 and self.dir.y == 0 then
+				--table.insert(self.dirqueue, {x = 0, y = 1})
+			---elseif self.dir.x == -1 and self.dir.y == 0 then
+				--table.insert(self.dirqueue, {x = 0, y = -1})
+			--elseif self.dir.x == 0 and self.dir.y == 1 then
+				--table.insert(self.dirqueue, {x = -1, y = 0})	
+			--elseif self.dir.x == 0 and self.dir.y == -1 then
+				--table.insert(self.dirqueue, {x = 1, y = 0})	
+			--end
+		
+	end

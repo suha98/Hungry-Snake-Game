@@ -1,0 +1,26 @@
+function init(self)
+	score = 0
+	score_node = gui.get_node("s")	
+	game_node = gui.get_node("gameover")
+	win_node = gui.get_node("win")
+
+
+end
+
+
+function on_message(self, message_id, message, sender)
+
+	if message_id == hash("gameover") then
+
+		gui.set_text(game_node, "GAME OVER")
+		
+	elseif message_id == hash("add") then
+		score = score + message.amount
+		gui.set_text(score_node, tostring(score))
+
+	elseif message_id == hash("win") then
+
+		gui.set_text(win_node, "WINNER!")
+	end
+end
+

@@ -1,0 +1,84 @@
+local function load_menu(self)
+	msg.post("loader#home", "load")
+	msg.post("loader#home", "enable")
+end
+
+local function unload_menu(self)
+	msg.post("loader#home","unload")
+end
+
+local function unload_main(self)
+	msg.post("loader#levels","unload")
+end
+
+local function unload_level_one(self)
+	msg.post("loader#main","unload")
+end
+
+local function unload_level_two(self)
+	msg.post("loader#level_two","unload")
+end
+
+local function unload_restart(self)
+	msg.post("loader#restartlevel","unload")
+end
+local function restart(self)
+	msg.post("loader#restartlevel", "load")
+	msg.post("loader#restartlevel", "enable")
+end
+local function load_main(self)
+	msg.post("loader#levels", "load")
+	msg.post("loader#levels", "enable")
+end
+
+local function showmenu(self)
+	msg.post("loader#levels", "load")
+	msg.post("loader#levels", "enable")
+end
+
+
+
+local function load_level_one(self)
+	msg.post("loader#main", "load")
+	msg.post("loader#main", "enable")
+end
+
+local function load_level_two(self)
+	msg.post("loader#level_two", "load")
+	msg.post("loader#level_two", "enable")
+end
+
+function init(self)
+	msg.post(".", "acquire_input_focus")
+	load_menu(self)
+end
+
+function on_message(self, message_id, message, sender)
+	
+
+	
+	if message_id == hash("start_game") then
+		unload_menu(self)
+		load_main(self)
+	elseif message_id == hash("level_one") then
+		unload_main(self)
+		load_level_one(self)
+	elseif message_id == hash("level_two") then
+		unload_main(self)
+		load_level_two(self)	
+	elseif message_id == hash("returntomenu") then
+		unload_level_two(self)
+		load_menu(self)
+	elseif message_id == hash("gotolevels") then
+		unload_level_two(self)
+		load_main(self)
+	elseif message_id == hash("restartlevel") then
+		unload_level_two(self)
+		restart(self)
+	elseif message_id == hash("reload2") then
+		unload_restart(self)
+		load_level_two(self)
+	end
+	
+end
+
