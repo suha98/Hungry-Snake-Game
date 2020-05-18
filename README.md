@@ -1,13 +1,15 @@
-# Welcome to Defold
+# Hungry Snake
 
-This project was created from the "empty" project template.
+The Hungry Snake Game has been created on the Defold game engine using the Lua programming language. It's a version of the original classic Snake with a few fun twists.
 
-The settings in ["game.project"](defold://open?path=/game.project) are all the default. A bootstrap empty ["main.collection"](defold://open?path=/main/main.collection) is included.
+Rules: Eat all the colored tiles on the board to win! Avoid the red skulls and don't eat your own tail. These actions and leaving the game board will all result in a game over.
 
-Check out [the documentation pages](https://defold.com/learn) for examples, tutorials, manuals and API docs.
+Controls: Use the up, down, left and right arrow keys to control the snake.
 
-If you run into trouble, help is available in [our forum](https://forum.defold.com).
+Powerup Key:
+1.	Red Skull: Eating results in a game over.
+2.	Mushroom: Shortens snake length.
+3.	Star: Bonus points!
 
-Happy Defolding!
+There are a total of 15 levels in the game to complete. H
 
----# Hungry-Snake-Game
