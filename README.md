@@ -11,5 +11,5 @@ Powerup Key:
 2.	Mushroom: Shortens snake length.
 3.	Star: Bonus points!
 
-There are a total of 15 levels in the game to complete. H
+There are a total of 15 levels in the game to complete. 
 
