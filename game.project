@@ -21,3 +21,6 @@ compress_archive = 0
 [library]
 include_dirs = 
 
+[collection_proxy]
+max_count = 20
+

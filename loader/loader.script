@@ -19,6 +19,49 @@ local function unload_level_two(self)
 	msg.post("loader#level_two","unload")
 end
 
+local function unload_level_three(self)
+	msg.post("loader#level_three","unload")
+end
+
+local function unload_level_four(self)
+	msg.post("loader#level_four","unload")
+end
+local function unload_level_five(self)
+	msg.post("loader#level_five","unload")
+end
+
+local function unload_level_six(self)
+	msg.post("loader#level_six","unload")
+end
+
+local function unload_level_seven(self)
+	msg.post("loader#level_seven","unload")
+end
+local function unload_level_eight(self)
+	msg.post("loader#level_eight","unload")
+end
+local function unload_level_nine(self)
+	msg.post("loader#level_nine","unload")
+end
+local function unload_level_ten(self)
+	msg.post("loader#level_ten","unload")
+end
+local function unload_level_eleven(self)
+	msg.post("loader#level_eleven","unload")
+end
+local function unload_level_twelve(self)
+	msg.post("loader#level_twelve","unload")
+end
+local function unload_level_thirteen(self)
+	msg.post("loader#level_thirteen","unload")
+end
+local function unload_level_fourteen(self)
+	msg.post("loader#level_fourteen","unload")
+end
+local function unload_level_fifteen(self)
+	msg.post("loader#level_fifteen","unload")
+end
+
 local function unload_restart(self)
 	msg.post("loader#restartlevel","unload")
 end
@@ -48,6 +91,110 @@ local function load_level_two(self)
 	msg.post("loader#level_two", "enable")
 end
 
+local function load_level_three(self)
+	msg.post("loader#level_three", "load")
+	msg.post("loader#level_three", "enable")
+end
+
+local function load_level_four(self)
+	msg.post("loader#level_four", "load")
+	msg.post("loader#level_four", "enable")
+end
+
+local function load_level_five(self)
+	msg.post("loader#level_five", "load")
+	msg.post("loader#level_five", "enable")
+end
+
+local function load_level_six(self)
+	msg.post("loader#level_six", "load")
+	msg.post("loader#level_six", "enable")
+end
+
+local function load_level_seven(self)
+	msg.post("loader#level_seven", "load")
+	msg.post("loader#level_seven", "enable")
+end
+
+local function load_level_eight(self)
+	msg.post("loader#level_eight", "load")
+	msg.post("loader#level_eight", "enable")
+end
+
+local function load_level_nine(self)
+	msg.post("loader#level_nine", "load")
+	msg.post("loader#level_nine", "enable")
+end
+
+local function load_level_ten(self)
+	msg.post("loader#level_ten", "load")
+	msg.post("loader#level_ten", "enable")
+end
+
+local function load_level_eleven(self)
+	msg.post("loader#level_eleven", "load")
+	msg.post("loader#level_eleven", "enable")
+end
+
+local function load_level_twelve(self)
+	msg.post("loader#level_twelve", "load")
+	msg.post("loader#level_twelve", "enable")
+end
+
+local function load_level_thirteen(self)
+	msg.post("loader#level_thirteen", "load")
+	msg.post("loader#level_thirteen", "enable")
+end
+
+local function load_level_fourteen(self)
+	msg.post("loader#level_fourteen", "load")
+	msg.post("loader#level_fourteen", "enable")
+end
+
+local function load_level_fifteen(self)
+	msg.post("loader#level_fifteen", "load")
+	msg.post("loader#level_fifteen", "enable")
+end
+
+local function returnmenu(self)
+
+	unload_level_two(self)
+	unload_level_three(self)
+	unload_level_four(self)
+	unload_level_eight(self)
+	unload_level_eleven(self)
+	unload_level_fifteen(self)
+	unload_level_five(self)
+	unload_level_fourteen(self)
+	unload_level_nine(self)
+	unload_level_one(self)
+	unload_level_seven(self)
+	unload_level_six(self)
+	unload_level_ten(self)
+	unload_level_thirteen(self)
+	unload_level_twelve(self)
+	load_menu(self)
+end
+
+local function levelscreen(self)
+	unload_level_two(self)
+	unload_level_three(self)
+	unload_level_four(self)
+	unload_level_eight(self)
+	unload_level_eleven(self)
+	unload_level_fifteen(self)
+	unload_level_five(self)
+	unload_level_fourteen(self)
+	unload_level_nine(self)
+	unload_level_one(self)
+	unload_level_seven(self)
+	unload_level_six(self)
+	unload_level_ten(self)
+	unload_level_thirteen(self)
+	unload_level_twelve(self)
+	load_main(self)
+end
+
 function init(self)
 	msg.post(".", "acquire_input_focus")
 	load_menu(self)
@@ -66,18 +213,49 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == hash("level_two") then
 		unload_main(self)
 		load_level_two(self)	
+	elseif message_id == hash("level_three") then
+		unload_main(self)
+		load_level_three(self)
+	elseif message_id == hash("level_four") then
+		unload_main(self)
+		load_level_four(self)
+	elseif message_id == hash("level_five") then
+		unload_main(self)
+		load_level_five(self)
+		elseif message_id == hash("level_six") then
+		unload_main(self)
+		load_level_six(self)
+	elseif message_id == hash("level_seven") then
+		unload_main(self)
+		load_level_seven(self)
+	elseif message_id == hash("level_eight") then
+		unload_main(self)
+		load_level_eight(self)
+	elseif message_id == hash("level_nine") then
+		unload_main(self)
+		load_level_nine(self)
+	elseif message_id == hash("level_ten") then
+		unload_main(self)
+		load_level_ten(self)
+	elseif message_id == hash("level_eleven") then
+		unload_main(self)
+		load_level_eleven(self)
+	elseif message_id == hash("level_twelve") then
+		unload_main(self)
+		load_level_twelve(self)
+	elseif message_id == hash("level_thirteen") then
+		unload_main(self)
+		load_level_thirteen(self)
+	elseif message_id == hash("level_fourteen") then
+		unload_main(self)
+		load_level_fourteen(self)
+	elseif message_id == hash("level_fifteen") then
+		unload_main(self)
+		load_level_fifteen(self)
 	elseif message_id == hash("returntomenu") then
-		unload_level_two(self)
-		load_menu(self)
+		returnmenu(self)
 	elseif message_id == hash("gotolevels") then
-		unload_level_two(self)
-		load_main(self)
-	elseif message_id == hash("restartlevel") then
-		unload_level_two(self)
-		restart(self)
-	elseif message_id == hash("reload2") then
-		unload_restart(self)
-		load_level_two(self)
+		levelscreen(self)
 	end
 	
 end

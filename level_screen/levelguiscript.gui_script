@@ -27,6 +27,21 @@ function on_input(self, action_id, action)
 	if action_id == hash("touch") and action.pressed then
 		local levelBegin = gui.get_node("one")
 		local leveltwo = gui.get_node("two")
+		local levelthree = gui.get_node("three")
+		local levelfour = gui.get_node("four")
+		local levelfive = gui.get_node("five")
+		local levelsix = gui.get_node("six")
+		local levelseven = gui.get_node("seven")
+		local leveleight = gui.get_node("eight")
+		local levelnine = gui.get_node("nine")
+		local levelten = gui.get_node("ten")
+		local leveleleven = gui.get_node("eleven")
+		local leveltwelve = gui.get_node("twelve")
+		local levelthirteen = gui.get_node("thirteen")
+		local levelfourteen = gui.get_node("fourteen")
+		local levelfifteen = gui.get_node("fifteen")
+		
+		
 		if(gui.pick_node(levelBegin,action.x,action.y)) then
 			msg.post("loader:/loader#loader", "level_one")
 			sound.play("#buttonclick", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
@@ -34,6 +49,47 @@ function on_input(self, action_id, action)
 		elseif (gui.pick_node(leveltwo,action.x,action.y)) then
 			msg.post("loader:/loader#loader", "level_two")
 			sound.play("#buttonclick", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+
+		elseif (gui.pick_node(levelthree,action.x,action.y)) then
+			msg.post("loader:/loader#loader", "level_three")
+			sound.play("#buttonclick", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+		elseif (gui.pick_node(levelfour,action.x,action.y)) then
+			msg.post("loader:/loader#loader", "level_four")
+			sound.play("#buttonclick", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+		elseif (gui.pick_node(levelfive,action.x,action.y)) then
+			msg.post("loader:/loader#loader", "level_five")
+			sound.play("#buttonclick", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+		elseif (gui.pick_node(levelsix,action.x,action.y)) then
+			msg.post("loader:/loader#loader", "level_six")
+			sound.play("#buttonclick", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+		elseif (gui.pick_node(levelseven,action.x,action.y)) then
+			msg.post("loader:/loader#loader", "level_seven")
+			sound.play("#buttonclick", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+		elseif (gui.pick_node(leveleight,action.x,action.y)) then
+			msg.post("loader:/loader#loader", "level_eight")
+			sound.play("#buttonclick", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+		elseif (gui.pick_node(levelnine,action.x,action.y)) then
+			msg.post("loader:/loader#loader", "level_nine")
+			sound.play("#buttonclick", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+		elseif (gui.pick_node(levelten,action.x,action.y)) then
+			msg.post("loader:/loader#loader", "level_ten")
+			sound.play("#buttonclick", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+		elseif (gui.pick_node(leveleleven,action.x,action.y)) then
+			msg.post("loader:/loader#loader", "level_eleven")
+			sound.play("#buttonclick", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+		elseif (gui.pick_node(leveltwelve,action.x,action.y)) then
+			msg.post("loader:/loader#loader", "level_twelve")
+			sound.play("#buttonclick", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+		elseif (gui.pick_node(levelthirteen,action.x,action.y)) then
+			msg.post("loader:/loader#loader", "level_thirteen")
+			sound.play("#buttonclick", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+		elseif (gui.pick_node(levelfourteen,action.x,action.y)) then
+			msg.post("loader:/loader#loader", "level_fourteen")
+			sound.play("#buttonclick", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+		elseif (gui.pick_node(levelfifteen,action.x,action.y)) then
+			msg.post("loader:/loader#loader", "level_fifteen")
+			sound.play("#buttonclick", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+			
 
 		end
 	end

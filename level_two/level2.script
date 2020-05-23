@@ -1,18 +1,81 @@
-local function put_food(self)
-	self.food = {x = math.random(1, 22), y = math.random(1, 22)}
+function put_food(self)
+	self.food = {x = math.random(1, 30), y = math.random(1, 17)}
 	tilemap.set_tile("#grid", "layer1", self.food.x, self.food.y, 3)        
 end
 
-local function put_star(self)
-	self.star = {x = math.random(1, 22), y = math.random(1, 22)}
+function put_star(self)
+	self.star = {x = math.random(1, 30), y = math.random(1, 17)}
 	tilemap.set_tile("#grid", "layer1", self.star.x, self.star.y, 9)        
 end
 
-local function put_power(self)
-	self.power = {x = math.random(1, 22), y = math.random(1, 22)}
+function put_power(self)
+	self.power = {x = math.random(1, 30), y = math.random(1, 17)}
 	tilemap.set_tile("#grid", "layer1", self.power.x, self.power.y, 10)        
 end
 
+function put_snail(self)
+	self.snail = {x = math.random(1, 30), y = math.random(1, 17)}
+	tilemap.set_tile("#grid", "layer1", self.power.x, self.power.y, 13)        
+end 
+
+function win(self)
+	local finish = 0
+	local start_x, start_y, w, h = tilemap.get_bounds("#grid")
+	for x=start_x,start_x+w do
+		for y=start_y,start_y+h do
+			local tile = tilemap.get_tile("#grid", "layer1", x, y)
+			if tile == 6 or tile == 8 or tile == 19 or tile == 22 or tile == 11 or tile == 12 then
+				finish = finish +1
+			end
+		end
+	end	
+	if finish == 0 then
+		self.alive = false
+		msg.post("#level2gui", "win")
+	end
+end
+
+function scoring(self)
+	self.speed = self.speed + .1	
+	self.score = self.score + 20
+	self.count = self.count + 1
+	sound.play("#eating", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+	msg.post("#level2gui", "add", {amount = self.score})
+	if self.count % 4 == 0 then
+		put_food(self)
+	end
+	if self.count%5 == 0 then
+		put_star(self)
+	end
+	if self.count%6 == 0 then
+		put_power(self)
+	end
+	if self.count% 13 == 0 then
+		put_snail(self)
+	end
+end
+
+function mushroom(self)
+	self.score = self.score + 50
+	msg.post("#level2gui", "add", {amount = self.score})
+	sound.play("#buttonclick", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+	local tail = table.remove(self.segments, 1)
+	tilemap.set_tile("#grid", "layer1", tail.x, tail.y, 1)
+	local tail = table.remove(self.segments, 1)
+	tilemap.set_tile("#grid", "layer1", tail.x, tail.y, 1)
+	local tail = table.remove(self.segments, 1)
+	tilemap.set_tile("#grid", "layer1", tail.x, tail.y, 1)
+	local tail = table.remove(self.segments, 1)
+	tilemap.set_tile("#grid", "layer1", tail.x, tail.y, 1)
+end
+
+
+function snail(self)
+	self.score = self.score + 50
+	self.speed = self.speed - .5
+	msg.post("#level2gui", "add", {amount = self.score})
+	sound.play("#buttonclick", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+end
 function init(self)
 	sound.play("#loading", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
 	self.score  = 0
@@ -69,6 +132,8 @@ function init(self)
 
 			elseif tile == 10 then
 				msg.post("#", "mushroompower")
+			elseif tile == 13 then
+				msg.post("#", "slowspeed")
 				
 			else
 				local tail = table.remove(self.segments, 1)
@@ -88,52 +153,18 @@ function init(self)
 		-- Add message-handling code here
 		-- Remove this function if not needed
 		if message_id == hash("winnercode") then
-			local finish = 0
-			local start_x, start_y, w, h = tilemap.get_bounds("#grid")
-			for x=start_x,start_x+w do
-				for y=start_y,start_y+h do
-					local tile = tilemap.get_tile("#grid", "layer1", x, y)
-					if tile == 6 or tile == 8 or tile == 19 or tile == 22 or tile == 11 or tile == 12 then
-						finish = finish +1
-					end
-				end
-			end	
-			if finish == 0 then
-				self.alive = false
-				msg.post("#level2gui", "win")
-			end
-			
+			win(self)
 		elseif message_id == hash("scorecode") then
-			self.speed = self.speed + .1	
-			self.score = self.score + 20
-			self.count = self.count + 1
-			sound.play("#eating", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
-			msg.post("#level2gui", "add", {amount = self.score})
-			if self.count % 4 == 0 then
-				put_food(self)
-			elseif self.count%5 == 0 then
-				put_star(self)
-			elseif self.count%3 == 0 then
-				put_power(self)
-			end
+			scoring(self)
 			
 		elseif message_id == hash("mushroompower") then
-			
-			self.score = self.score + 50
-			msg.post("#level2gui", "add", {amount = self.score})
-			sound.play("#buttonclick", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
-			local tail = table.remove(self.segments, 1)
-			tilemap.set_tile("#grid", "layer1", tail.x, tail.y, 1)
-			local tail = table.remove(self.segments, 1)
-			tilemap.set_tile("#grid", "layer1", tail.x, tail.y, 1)
-			local tail = table.remove(self.segments, 1)
-			tilemap.set_tile("#grid", "layer1", tail.x, tail.y, 1)
-			local tail = table.remove(self.segments, 1)
-			tilemap.set_tile("#grid", "layer1", tail.x, tail.y, 1)
-
+			mushroom(self)
 		elseif message_id == hash("pausegame") then
 
 			self.pause = true
+
+		elseif message_id == hash("slowspeed") then
+			snail(self)
 		elseif message_id == hash("resumegame") then
 
 			self.pause = false

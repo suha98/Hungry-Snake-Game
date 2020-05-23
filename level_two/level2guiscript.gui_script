@@ -55,20 +55,22 @@ function on_input(self, action_id, action)
 	
 			msg.post("loader:/loader#loader", "restartlevel")
 			
-		elseif (gui.pick_node(levelselect_node,action.x,action.y)) or (gui.pick_node(pausels_node,action.x,action.y)) then
+		elseif (gui.pick_node(levelselect_node,action.x,action.y)) then
+			msg.post("loader:/loader#loader", "gotolevels")
+			sound.play("#buttonclick", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+
+		elseif (gui.pick_node(pausels_node,action.x,action.y)) then
 			msg.post("loader:/loader#loader", "gotolevels")
 			sound.play("#buttonclick", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
 
 		elseif (gui.pick_node(pause_node,action.x,action.y)) then
 			gui.set_enabled(pm_node, true)
 			msg.post(".", "acquire_input_focus")
-			sound.play("#startertune", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
 			msg.post("#level2", "pausegame")
 
 		elseif (gui.pick_node(resume_node,action.x,action.y)) then
 			gui.set_enabled(pm_node, false)
 			msg.post(".", "acquire_input_focus")
-			msg.post(".", "release_input_focus")
 			msg.post("#level2", "resumegame")
 			
 		end

@@ -1249,27 +1249,6 @@ layers {
     h_flip: 0
     v_flip: 0
   }
-  cell {
-    x: 22
-    y: 21
-    tile: 6
-    h_flip: 0
-    v_flip: 0
-  }
-  cell {
-    x: 23
-    y: 21
-    tile: 6
-    h_flip: 0
-    v_flip: 0
-  }
-  cell {
-    x: 24
-    y: 21
-    tile: 6
-    h_flip: 0
-    v_flip: 0
-  }
 }
 material: "/builtins/materials/tile_map.material"
 blend_mode: BLEND_MODE_ALPHA
