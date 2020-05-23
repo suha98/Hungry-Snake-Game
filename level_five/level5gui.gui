@@ -1,0 +1,36 @@
+script: "/level_five/level5guiscript.gui_script"
+fonts {
+  name: "system_font"
+  font: "/builtins/fonts/system_font.font"
+}
+fonts {
+  name: "retro"
+  font: "/home/retro.font"
+}
+fonts {
+  name: "retro2"
+  font: "/home/retro2.font"
+}
+fonts {
+  name: "retro3"
+  font: "/home/retro3.font"
+}
+fonts {
+  name: "retro4"
+  font: "/home/retro4.font"
+}
+background_color {
+  x: 0.0
+  y: 0.0
+  z: 0.0
+  w: 0.0
+}
+layers {
+  name: "text"
+}
+layers {
+  name: "beneath"
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT
+max_nodes: 512

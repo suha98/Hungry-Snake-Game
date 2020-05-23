@@ -1,0 +1,80 @@
+function init(self)
+	score = 0
+	score_node = gui.get_node("s")	
+	game_node = gui.get_node("gameover")
+	win_node = gui.get_node("win")
+	tryagain_node = gui.get_node("tryagain")	
+	mainmenu_node = gui.get_node("mainmenu")
+	levelselect_node = gui.get_node("levelselect")
+	pause_node = gui.get_node("pause")
+	gom_node = gui.get_node("gameovermenu")
+	pm_node = gui.get_node("pausemenu")
+	resume_node = gui.get_node("resume")
+	pausemm_node = gui.get_node("pausemainm")
+	pausels_node = gui.get_node("pausels")
+	pauseta_node = gui.get_node("pauseta")
+	gui.set_enabled(gom_node, false)
+	gui.set_enabled(pm_node, false)
+
+
+
+end
+
+
+
+
+function on_message(self, message_id, message, sender)
+
+	if message_id == hash("gameover") then
+		gui.set_enabled(gom_node, true)
+		msg.post(".", "acquire_input_focus")
+
+	elseif message_id == hash("add") then
+		score = score + message.amount
+
+		gui.set_text(score_node, tostring(score))
+
+	elseif message_id == hash("win") then
+		gui.set_enabled(win_node, true)
+		msg.post(".", "acquire_input_focus")
+
+
+	end
+end
+
+function on_input(self, action_id, action)
+	-- Add input-handling code here
+	-- Remove this function if not needed
+	if action_id == hash("touch") and action.pressed then
+
+		if(gui.pick_node(mainmenu_node,action.x,action.y)) or (gui.pick_node(pausemm_node,action.x,action.y)) then
+			msg.post("loader:/loader#loader", "returntomenu")
+			sound.play("#buttonclick", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+
+		elseif (gui.pick_node(tryagain_node,action.x,action.y)) or (gui.pick_node(pauseta_node,action.x,action.y)) then
+
+			msg.post("loader:/loader#loader", "restartlevel")
+
+		elseif (gui.pick_node(levelselect_node,action.x,action.y)) then
+			msg.post("loader:/loader#loader", "gotolevels")
+			sound.play("#buttonclick", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+
+		elseif (gui.pick_node(pausels_node,action.x,action.y)) then
+			msg.post("loader:/loader#loader", "gotolevels")
+			sound.play("#buttonclick", {delay = 0, gain = 0.5, pan = -1.0, speed = 1})
+
+		elseif (gui.pick_node(pause_node,action.x,action.y)) then
+			gui.set_enabled(pm_node, true)
+			msg.post(".", "acquire_input_focus")
+			msg.post("#level4script", "pausegame")
+
+		elseif (gui.pick_node(resume_node,action.x,action.y)) then
+			gui.set_enabled(pm_node, false)
+			msg.post(".", "acquire_input_focus")
+			msg.post("#level4script", "resumegame")
+
+		end
+
+	end
+
+end
