@@ -13,3 +13,7 @@ Powerup Key:
 
 There are a total of 15 levels in the game to complete. 
 
+# Installation:
+
+Download the repository and also download the defold game engine from the web. After installation, open the folder to view and edit the files. 
+
