@@ -2,6 +2,8 @@
 
 The Hungry Snake Game has been created on the Defold game engine using the Lua programming language. It's a version of the original classic Snake with a few fun twists.
 
+Play it here: https://suha98.github.io/Hungry-Snake-Game/ (valid on the web, not on phones)
+
 Rules: Eat all the colored tiles on the board to win! Avoid the red skulls and don't eat your own tail. These actions and leaving the game board will all result in a game over.
 
 Controls: Use the up, down, left and right arrow keys to control the snake.
